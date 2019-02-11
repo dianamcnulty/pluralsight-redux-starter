@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
+import {beginAjaxCall} from './AjaxStatusActions';
 
 
 export function loadCoursesSuccess(courses) {
@@ -26,6 +27,7 @@ export function loadCourses() {
 
 export function saveCourse(course) {
   return function (dispatch, getState) {
+    dispatch(beginAjaxCall());
     return courseApi.saveCourse(course)
     .then(savedCourse => {
       console.log('saved course', savedCourse)
