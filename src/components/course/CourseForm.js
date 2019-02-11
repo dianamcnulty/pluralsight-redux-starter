@@ -56,3 +56,4 @@ CourseForm.propTypes = {
 };
 
 export default CourseForm;
+
