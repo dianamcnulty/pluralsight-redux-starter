@@ -14,13 +14,11 @@ class LoadingDots extends React.Component {
       });
     }, this.props.interval);
   }
-
-  componentWillMount() {
+  componentWillUnMount() {
     clearInterval(this.interval);
   }
-
   render() {
-    let dots = this.state.frame % (this.props.dots +1);
+    let dots = this.state.frame % (this.props.dots + 1);
     let text = '';
     while (dots > 0) {
       text += '.';

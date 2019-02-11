@@ -13,11 +13,11 @@ class ManageCoursePage extends React.Component {
       errors: {}
     };
     this.updateCourseState = this.updateCourseState.bind(this);
-    this.saveCourse = this.saveCourse.bind(this)
+    this.saveCourse = this.saveCourse.bind(this);
   }
   componentWillReceiveProps(nextProps){
     if(this.props.course.id != nextProps.course.id){ // only run if props have changed
-      this.setState({course:Object.assign({}, nextProps.course)});
+      this.setState({ course: Object.assign({}, nextProps.course) });
     }
   }
 

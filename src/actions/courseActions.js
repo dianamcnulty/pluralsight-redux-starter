@@ -4,6 +4,7 @@ import {beginAjaxCall} from './AjaxStatusActions';
 
 
 export function loadCoursesSuccess(courses) {
+  console.log('successfully loaded courses');
   return { type: types.LOAD_COURSES_SUCCESS, courses };
 }
 export function createCourseSuccess(course) {
@@ -16,6 +17,7 @@ export function updateCourseSuccess(course) {
 
 export function loadCourses() {
   return function(dispatch) {
+    dispatch(beginAjaxCall());
     return courseApi.getAllCourses()
     .then(courses => {
       dispatch(loadCoursesSuccess(courses));
@@ -30,7 +32,7 @@ export function saveCourse(course) {
     dispatch(beginAjaxCall());
     return courseApi.saveCourse(course)
     .then(savedCourse => {
-      console.log('saved course', savedCourse)
+      console.log('saved course', savedCourse);
       course.id ? dispatch(updateCourseSuccess(savedCourse)) :
         dispatch(createCourseSuccess(savedCourse));
     }).catch(error => {
