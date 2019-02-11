@@ -15,8 +15,8 @@ class ManageCoursePage extends React.Component {
     this.updateCourseState = this.updateCourseState.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
   }
-  componentWillReceiveProps(nextProps){
-    if(this.props.course.id != nextProps.course.id){ // only run if props have changed
+  componentWillReceiveProps(nextProps) {
+    if (this.props.course.id != nextProps.course.id) { // only run if props have changed
       this.setState({ course: Object.assign({}, nextProps.course) });
     }
   }
@@ -25,28 +25,31 @@ class ManageCoursePage extends React.Component {
     const field = event.target.name;
     let course = this.state.course;
     course[field] = event.target.value;
-    return this.setState({course: course});
+    return this.setState({ course: course });
   }
 
   saveCourse(event) {
     event.preventDefault();
-    this.props.actions.saveCourse(this.state.course);
-    this.context.router.push('/courses');
-  }
+    this.props.actions.saveCourse(this.state.course)
+      .then(() => this.redirect());
 
-  render() {
-    // const { courses } = this.props;
-
-    return (
-        <CourseForm
-          allAuthors={this.props.authors}
-          onChange={this.updateCourseState}
-          onSave={this.saveCourse}
-          course={this.state.course}
-          errors={this.state.errors}
-        />
-    );
   }
+  redirect() {
+  this.context.router.push('/courses');
+}
+render() {
+  // const { courses } = this.props;
+
+  return (
+    <CourseForm
+      allAuthors={this.props.authors}
+      onChange={this.updateCourseState}
+      onSave={this.saveCourse}
+      course={this.state.course}
+      errors={this.state.errors}
+    />
+  );
+}
 }
 
 ManageCoursePage.propTypes = {
@@ -59,7 +62,7 @@ ManageCoursePage.contextTypes = {
 };
 function getCourseById(courses, id) {
 
-  const course = courses.filter(course => course.id ==id);
+  const course = courses.filter(course => course.id == id);
   if (course) return course[0];
   return null;
 
